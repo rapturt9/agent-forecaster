@@ -1,0 +1,10 @@
+artifact_location: file:///Users/ram/Github/agent-forecaster/mlruns/679176809652724117/models/m-21ad9bdcc8bd4ea88f00c051a345c7ba/artifacts
+creation_timestamp: 1762116501168
+experiment_id: '679176809652724117'
+last_updated_timestamp: 1762116501174
+model_id: m-21ad9bdcc8bd4ea88f00c051a345c7ba
+model_type: null
+name: superforecaster_v1
+source_run_id: null
+status: 2
+status_message: null

@@ -1,0 +1,29 @@
+MODEL 1: COMPARISON:
+
+- **
+
+- **
+
+MODEL 2: ** (Base Rate): ~0.7% - Very conservative, relies purely on history
+- **
+- **
+
+MODEL 3: ** (Climate Adjusted): ~2.3% - Accounts for warming trends
+- **
+- **
+
+MODEL 4: ** (Conditional): ~1.6% - Breaks down by weather scenarios
+
+---
+
+## SELECTED 
+
+---
+
+## SELECTED 
+
+MODEL 5: (Conditional Probability Model)
+
+**Rationale**: This 
+
+**Rationale**: This 

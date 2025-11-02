@@ -1,0 +1,2 @@
+**1. What the base rate tells us:**
+The clearest signal is from 2023-2024, where we saw approximately 2-3 significant breakthroughs per year (Constitutional AI deployment, Circuit Breakers, major interpretability advances, HarmBench). This suggests a historical rate around 60-90% chance of at least one breakthrough annually. However, this is a very short window and may not be stable.

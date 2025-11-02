@@ -1,0 +1,32 @@
+{
+  "question": "Will Google release Gemini 3 in 2025?",
+  "question_type": "binary",
+  "started_at": "2025-11-02T15:36:59.278959",
+  "completed_at": "2025-11-02T15:37:06.703826",
+  "duration_seconds": 7.424867,
+  "tool_calls": [],
+  "reasoning_steps": [
+    {
+      "timestamp": "2025-11-02T15:36:59.279283",
+      "step_type": "initialization",
+      "content": "Starting forecast for: Will Google release Gemini 3 in 2025?"
+    },
+    {
+      "timestamp": "2025-11-02T15:36:59.279320",
+      "step_type": "prompt_generation",
+      "content": "Generated prompt with context: Google has released Gemini 1.0 (Dec 2023), Gemini 1.5 (Feb 2024), and Gemini 2.0 (Dec 2024).\nConside"
+    }
+  ],
+  "squiggle_models": [],
+  "selected_model_id": null,
+  "final_forecast": null,
+  "confidence": "unknown",
+  "final_reasoning": "",
+  "full_conversation": "Assistant: Credit balance is too low",
+  "statistics": {
+    "total_tool_calls": 0,
+    "total_reasoning_steps": 2,
+    "total_models_generated": 0,
+    "duration_seconds": 7.424867
+  }
+}

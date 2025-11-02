@@ -1,0 +1,13 @@
+{
+  "question": "Will Google release Gemini 3 in 2025?",
+  "question_type": "binary",
+  "context": "Google has released Gemini 1.0 (Dec 2023), Gemini 1.5 (Feb 2024), and Gemini 2.0 (Dec 2024).\nConsider:\n- Google's release cadence and patterns\n- Gemini 2.0 features and current capabilities\n- Industry competition (OpenAI, Anthropic)\n- Google's public statements and roadmap\n- Historical release timing patterns",
+  "timestamp": "2025-11-02T15:37:06.720658",
+  "forecast": null,
+  "confidence": "unknown",
+  "reasoning": "",
+  "models": [],
+  "duration_seconds": 7.424867,
+  "total_tool_calls": 0,
+  "total_models": 0
+}

@@ -1,0 +1,10 @@
+artifact_location: file:///Users/ram/Github/agent-forecaster/mlruns/186054140738940807/models/m-775fbafcaade4242a18fe55935a6a4b4/artifacts
+creation_timestamp: 1762106218753
+experiment_id: '186054140738940807'
+last_updated_timestamp: 1762106218758
+model_id: m-775fbafcaade4242a18fe55935a6a4b4
+model_type: null
+name: forecasting_agent_v1
+source_run_id: null
+status: 2
+status_message: null

@@ -1,0 +1,10 @@
+artifact_location: file:///Users/ram/Github/agent-forecaster/mlruns/134320948493520154/models/m-280ab48e42ac44719aac5ad86598a4ab/artifacts
+creation_timestamp: 1762118654807
+experiment_id: '134320948493520154'
+last_updated_timestamp: 1762118654833
+model_id: m-280ab48e42ac44719aac5ad86598a4ab
+model_type: null
+name: gemini3_test_v1
+source_run_id: null
+status: 2
+status_message: null

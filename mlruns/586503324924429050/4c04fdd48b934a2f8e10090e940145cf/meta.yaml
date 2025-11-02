@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/ram/Github/agent-forecaster/mlruns/586503324924429050/4c04fdd48b934a2f8e10090e940145cf/artifacts
+end_time: 1762124740208
+entry_point_name: ''
+experiment_id: '586503324924429050'
+lifecycle_stage: active
+run_id: 4c04fdd48b934a2f8e10090e940145cf
+run_name: abtdt_capability_forecast
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762124740204
+status: 4
+tags: []
+user_id: ram

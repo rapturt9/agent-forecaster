@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/ram/Github/agent-forecaster/mlruns/186054140738940807/9e5954a95b344265870e11d3ad90a88c/artifacts
+end_time: 1762106254216
+entry_point_name: ''
+experiment_id: '186054140738940807'
+lifecycle_stage: active
+run_id: 9e5954a95b344265870e11d3ad90a88c
+run_name: forecast_38444
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762106218760
+status: 3
+tags: []
+user_id: ram

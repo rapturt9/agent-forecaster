@@ -1,0 +1,10 @@
+artifact_location: file:///Users/ram/Github/agent-forecaster/mlruns/586503324924429050/models/m-6ba3a2f5280c4788bfcc6e54341c0622/artifacts
+creation_timestamp: 1762124740195
+experiment_id: '586503324924429050'
+last_updated_timestamp: 1762124740202
+model_id: m-6ba3a2f5280c4788bfcc6e54341c0622
+model_type: null
+name: abtdt_forecaster
+source_run_id: null
+status: 2
+status_message: null

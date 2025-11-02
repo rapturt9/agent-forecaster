@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/ram/Github/agent-forecaster/mlruns/134320948493520154/951a430bb9294c29abc859c929f28a4d/artifacts
+end_time: 1762123835685
+entry_point_name: ''
+experiment_id: '134320948493520154'
+lifecycle_stage: active
+run_id: 951a430bb9294c29abc859c929f28a4d
+run_name: forecast_gemini3_test
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762123293559
+status: 3
+tags: []
+user_id: ram

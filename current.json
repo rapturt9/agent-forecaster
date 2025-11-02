@@ -1,0 +1,65 @@
+[
+    {
+        "post_id": 39114,
+        "question_id": 38444,
+        "type": "multiple_choice",
+        "title": "Who will win the 2025 Green Party of England and Wales leadership election?",
+        "actual_answer": "Zack Polanski",
+        "score": 61.91782160590692,
+        "open_time": "2025-08-11T00:44:00Z"
+    },
+    {
+        "post_id": 39003,
+        "question_id": 38337,
+        "type": "binary",
+        "title": "Will Tampa, Florida hit 100°F in August 2025?",
+        "actual_answer": "no",
+        "score": 97.08536543404836,
+        "open_time": "2025-07-31T20:00:00Z"
+    },
+    {
+        "post_id": 38894,
+        "question_id": 38217,
+        "type": "multiple_choice",
+        "title": "Which party will win the most seats in the 2025 Samoan general election?",
+        "actual_answer": "FAST",
+        "score": 10.02834058209266,
+        "open_time": "2025-07-28T17:00:00Z"
+    },
+    {
+        "post_id": 38688,
+        "question_id": 37944,
+        "type": "discrete",
+        "title": "What will be the lowest number of oil tankers passing through the Strait of Hormuz between June 15, 2025 and September 1, 2025?",
+        "actual_answer": "27.0",
+        "score": 94.96486697393567,
+        "open_time": "2025-06-23T19:30:00Z"
+    },
+    {
+        "post_id": 38579,
+        "question_id": 37809,
+        "type": "binary",
+        "title": "Will Ugandan opposition leader Kizza Besigye be released from custody before September 2025?",
+        "actual_answer": "no",
+        "score": 98.5500430304885,
+        "open_time": "2025-06-16T17:00:00Z"
+    },
+    {
+        "post_id": 38441,
+        "question_id": 37714,
+        "type": "numeric",
+        "title": "How many acres will be burned by fires in the US from January to August 2025?",
+        "actual_answer": "4142000",
+        "score": 148.5918326914524,
+        "open_time": "2025-06-09T17:00:00Z"
+    },
+    {
+        "post_id": 38691,
+        "question_id": 37950,
+        "type": "binary",
+        "title": "Will Israel strike the Iranian military in Iran again, before September 2025?",
+        "actual_answer": "no",
+        "score": 98.5500430304885,
+        "open_time": "2025-06-26T13:56:57Z"
+    }
+]

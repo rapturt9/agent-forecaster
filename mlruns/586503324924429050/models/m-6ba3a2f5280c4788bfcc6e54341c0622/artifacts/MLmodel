@@ -1,0 +1,15 @@
+artifact_path: file:///Users/ram/Github/agent-forecaster/mlruns/586503324924429050/models/m-6ba3a2f5280c4788bfcc6e54341c0622/artifacts
+flavors: {}
+is_signature_from_type_hint: false
+metadata:
+  mlflow.model.isExternal: true
+mlflow_version: 3.5.1
+model_id: m-6ba3a2f5280c4788bfcc6e54341c0622
+model_uuid: m-6ba3a2f5280c4788bfcc6e54341c0622
+prompts: null
+signature:
+  inputs: '[{"type": "boolean", "required": true}]'
+  outputs: '[{"type": "boolean", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-11-02 23:05:40.199600'
