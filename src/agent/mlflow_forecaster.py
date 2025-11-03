@@ -20,6 +20,7 @@ class MLflowForecastingAgent:
         model_name: str = "forecasting_agent",
         experiment_name: str = "forecasting",
         use_enhanced: bool = True,
+        verbose: bool = False,
     ):
         """Initialize MLflow-enabled forecasting agent.
 
@@ -27,9 +28,11 @@ class MLflowForecastingAgent:
             model_name: Name for the MLflow logged model
             experiment_name: Name of the MLflow experiment
             use_enhanced: Use enhanced forecaster with trajectory logging
+            verbose: Enable verbose logging
         """
         self.model_name = model_name
         self.experiment_name = experiment_name
+        self.verbose = verbose
 
         # Set up MLflow experiment
         mlflow.set_experiment(experiment_name)
@@ -39,7 +42,7 @@ class MLflowForecastingAgent:
 
         # Choose forecaster type
         if use_enhanced:
-            self.forecaster = EnhancedForecastingAgent()
+            self.forecaster = EnhancedForecastingAgent(verbose=verbose)
         else:
             self.forecaster = SimpleForecastingAgent()
 

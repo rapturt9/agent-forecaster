@@ -1,6 +1,7 @@
 """Bio-threat capability forecast using ABTDT operationalization."""
 
 import asyncio
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -20,6 +21,12 @@ from src.agent.doc_generator import generate_forecast_document
 
 async def main():
     """Forecast AI bio-threat capability using ABTDT test."""
+
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description="Bio-threat capability forecast")
+    parser.add_argument('--verbose', '-v', action='store_true',
+                        help='Enable verbose logging during execution')
+    args = parser.parse_args()
 
     print("="*80)
     print("BIO-THREAT FORECAST: When will AI achieve ABTDT capability?")
@@ -120,15 +127,21 @@ Consider both technical feasibility and development trajectory.
     print(f"   Expected duration: 20-40 minutes (100 max turns)")
     print()
 
+    if args.verbose:
+        print(f"{'🔬'*40}")
+        print(f"VERBOSE MODE ENABLED - Detailed progress will be shown")
+        print(f"{'🔬'*40}\n")
+
     try:
         # Initialize agent with MLflow tracking
         agent = MLflowForecastingAgent(
             model_name="abtdt_forecaster",
-            experiment_name="bio_threat_forecasts",
-            use_enhanced=True
+            experiment_name=experiment_name,
+            use_enhanced=True,
+            verbose=args.verbose
         )
 
-        # Generate forecast with MLflow tracking (agent.forecast handles the MLflow run)
+        # Generate forecast (MLflowForecastingAgent handles the MLflow run)
         forecast_result, run_id = await agent.forecast(
             question=question,
             question_type=question_type,
@@ -151,12 +164,12 @@ Consider both technical feasibility and development trajectory.
         # 2. Save conversation markdown
         conversation_path = output_dir / f"{base_name}_conversation.md"
         with open(conversation_path, "w") as f:
-                f.write(f"# ABTDT Bio-Threat Capability Forecast\n\n")
-                f.write(f"**Generated**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-                f.write(f"**Type**: {question_type}\n\n")
-                f.write(f"**Context**: {context[:200]}...\n\n")
-                f.write("---\n\n")
-                f.write(forecast_result.full_conversation)
+            f.write(f"# ABTDT Bio-Threat Capability Forecast\n\n")
+            f.write(f"**Generated**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+            f.write(f"**Type**: {question_type}\n\n")
+            f.write(f"**Context**: {context[:200]}...\n\n")
+            f.write("---\n\n")
+            f.write(forecast_result.full_conversation)
 
         # 3. Save structured report JSON
         report_path = output_dir / f"{base_name}_report.json"
@@ -164,62 +177,62 @@ Consider both technical feasibility and development trajectory.
         # Extract models using model_dump() for Pydantic models
         models_list = []
         if hasattr(forecast_result, 'squiggle_models'):
-                for model in forecast_result.squiggle_models:
-                    models_list.append(model.model_dump() if hasattr(model, 'model_dump') else {
-                        "model_id": model.model_id,
-                        "name": model.name,
-                        "code": model.code,
-                        "description": model.description,
-                        "result": model.result,
-                        "error": model.error,
-                        "created_at": model.created_at.isoformat() if hasattr(model.created_at, 'isoformat') else str(model.created_at)
-                    })
+            for model in forecast_result.squiggle_models:
+                models_list.append(model.model_dump() if hasattr(model, 'model_dump') else {
+                    "model_id": model.model_id,
+                    "name": model.name,
+                    "code": model.code,
+                    "description": model.description,
+                    "result": model.result,
+                    "error": model.error,
+                    "created_at": model.created_at.isoformat() if hasattr(model.created_at, 'isoformat') else str(model.created_at)
+                })
 
         report_data = {
-                "question": question,
-                "question_type": question_type,
-                "context": context,
-                "timestamp": datetime.now().isoformat(),
-                "forecast": forecast_result.final_forecast if hasattr(forecast_result, 'final_forecast') else forecast_result.forecast_value,
-                "confidence": forecast_result.confidence,
-                "reasoning": forecast_result.final_reasoning if hasattr(forecast_result, 'final_reasoning') else forecast_result.reasoning,
-                "models": models_list,
-                "duration_seconds": forecast_result.duration_seconds if hasattr(forecast_result, 'duration_seconds') else None,
-                "total_tool_calls": forecast_result.total_tool_calls if hasattr(forecast_result, 'total_tool_calls') else 0,
-                "total_models": forecast_result.total_models_generated if hasattr(forecast_result, 'total_models_generated') else 0,
-            }
+            "question": question,
+            "question_type": question_type,
+            "context": context,
+            "timestamp": datetime.now().isoformat(),
+            "forecast": forecast_result.final_forecast if hasattr(forecast_result, 'final_forecast') else forecast_result.forecast_value,
+            "confidence": forecast_result.confidence,
+            "reasoning": forecast_result.final_reasoning if hasattr(forecast_result, 'final_reasoning') else forecast_result.reasoning,
+            "models": models_list,
+            "duration_seconds": forecast_result.duration_seconds if hasattr(forecast_result, 'duration_seconds') else None,
+            "total_tool_calls": forecast_result.total_tool_calls if hasattr(forecast_result, 'total_tool_calls') else 0,
+            "total_models": forecast_result.total_models_generated if hasattr(forecast_result, 'total_models_generated') else 0,
+        }
         with open(report_path, "w") as f:
-                json.dump(report_data, f, indent=2, default=str)
+            json.dump(report_data, f, indent=2, default=str)
 
         # 4. Generate Word document
         docx_path = output_dir / f"{base_name}_report.docx"
         try:
-                # Extract research steps for Word document
-                research_steps_list = []
-                if hasattr(forecast_result, 'reasoning_steps'):
-                    for step in forecast_result.reasoning_steps:
-                        research_steps_list.append({
-                            "step_type": step.step_type if hasattr(step, 'step_type') else "unknown",
-                            "content": step.content if hasattr(step, 'content') else str(step)
-                        })
+            # Extract research steps for Word document
+            research_steps_list = []
+            if hasattr(forecast_result, 'reasoning_steps'):
+                for step in forecast_result.reasoning_steps:
+                    research_steps_list.append({
+                        "step_type": step.step_type if hasattr(step, 'step_type') else "unknown",
+                        "content": step.content if hasattr(step, 'content') else str(step)
+                    })
 
-                generate_forecast_document(
-                    output_path=str(docx_path),
-                    question=question,
-                    question_type=question_type,
-                    forecast=str(forecast_result.final_forecast if hasattr(forecast_result, 'final_forecast') else forecast_result.forecast_value),
-                    confidence=str(forecast_result.confidence),
-                    reasoning=forecast_result.final_reasoning if hasattr(forecast_result, 'final_reasoning') else forecast_result.reasoning,
-                    models=models_list,
-                    context=context,
-                    tool_calls=forecast_result.total_tool_calls if hasattr(forecast_result, 'total_tool_calls') else 0,
-                    duration=forecast_result.duration_seconds if hasattr(forecast_result, 'duration_seconds') else 0,
-                    research_steps=research_steps_list
-                )
-                print(f"\n✅ Word document generated: {docx_path}")
+            generate_forecast_document(
+                output_path=str(docx_path),
+                question=question,
+                question_type=question_type,
+                forecast=str(forecast_result.final_forecast if hasattr(forecast_result, 'final_forecast') else forecast_result.forecast_value),
+                confidence=str(forecast_result.confidence),
+                reasoning=forecast_result.final_reasoning if hasattr(forecast_result, 'final_reasoning') else forecast_result.reasoning,
+                models=models_list,
+                context=context,
+                tool_calls=forecast_result.total_tool_calls if hasattr(forecast_result, 'total_tool_calls') else 0,
+                duration=forecast_result.duration_seconds if hasattr(forecast_result, 'duration_seconds') else 0,
+                research_steps=research_steps_list
+            )
+            print(f"\n✅ Word document generated: {docx_path}")
         except Exception as e:
-                print(f"\n⚠️  Warning: Could not generate Word document: {e}")
-                print("   (Continuing without .docx)")
+            print(f"\n⚠️  Warning: Could not generate Word document: {e}")
+            print("   (Continuing without .docx)")
 
         # Display results
         print(f"\n{'='*80}")
@@ -241,7 +254,7 @@ Consider both technical feasibility and development trajectory.
         print(f"📊 Trajectory JSON: {trajectory_path}")
         print(f"📋 Structured Report: {report_path}")
         if docx_path.exists():
-                print(f"📝 Word Document: {docx_path}")
+            print(f"📝 Word Document: {docx_path}")
         print()
 
         print(f"{'='*80}")
@@ -262,13 +275,13 @@ Consider both technical feasibility and development trajectory.
         print(f"\n{'='*80}")
         print("VALIDATION SUMMARY")
         print(f"{'='*80}")
-            has_trajectory = trajectory_path.exists()
-            has_markdown = conversation_path.exists()
-            has_report = report_path.exists()
-            has_docx = docx_path.exists()
+        has_trajectory = trajectory_path.exists()
+        has_markdown = conversation_path.exists()
+        has_report = report_path.exists()
+        has_docx = docx_path.exists()
 
-            num_models = forecast_result.total_models_generated if hasattr(forecast_result, 'total_models_generated') else 0
-            num_tools = forecast_result.total_tool_calls if hasattr(forecast_result, 'total_tool_calls') else 0
+        num_models = forecast_result.total_models_generated if hasattr(forecast_result, 'total_models_generated') else 0
+        num_tools = forecast_result.total_tool_calls if hasattr(forecast_result, 'total_tool_calls') else 0
 
         print(f"✓ JSON trajectory saved: {has_trajectory}")
         print(f"✓ Markdown report saved: {has_markdown}")
@@ -277,14 +290,14 @@ Consider both technical feasibility and development trajectory.
         print(f"✓ MLflow logged: True")
         print(f"✓ Models generated: {num_models} (expected: 5+)")
         if num_models >= 5:
-                print(f"  ✅ PASS: Sufficient models generated")
-            else:
-                print(f"  ⚠️  WARNING: Only {num_models} models (expected 5+)")
+            print(f"  ✅ PASS: Sufficient models generated")
+        else:
+            print(f"  ⚠️  WARNING: Only {num_models} models (expected 5+)")
         print(f"✓ Tool calls made: {num_tools} (expected: 10+)")
         if num_tools >= 10:
-                print(f"  ✅ PASS: Sufficient research conducted")
-            else:
-                print(f"  ⚠️  WARNING: Only {num_tools} tool calls (expected 10+)")
+            print(f"  ✅ PASS: Sufficient research conducted")
+        else:
+            print(f"  ⚠️  WARNING: Only {num_tools} tool calls (expected 10+)")
         print(f"{'='*80}")
 
     except Exception as e:

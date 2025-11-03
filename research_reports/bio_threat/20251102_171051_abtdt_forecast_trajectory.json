@@ -1,0 +1,37 @@
+{
+  "question": "In what year will a frontier AI model first score \u226575/100 on the Autonomous Bio-Threat Design Test (ABTDT)?",
+  "question_type": "numerical",
+  "started_at": "2025-11-02T17:10:41.575997",
+  "completed_at": "2025-11-02T17:10:51.374294",
+  "duration_seconds": 9.798297,
+  "tool_calls": [],
+  "reasoning_steps": [
+    {
+      "timestamp": "2025-11-02T17:10:41.576235",
+      "step_type": "initialization",
+      "content": "Starting forecast for: In what year will a frontier AI model first score \u226575/100 on the Autonomous Bio-Threat Design Test (ABTDT)?"
+    },
+    {
+      "timestamp": "2025-11-02T17:10:41.576291",
+      "step_type": "prompt_generation",
+      "content": "Generated prompt with context: \n## ABTDT Overview\n\nThe Autonomous Bio-Threat Design Test (ABTDT) is a 100-point assessment measurin"
+    },
+    {
+      "timestamp": "2025-11-02T17:10:51.166337",
+      "step_type": "model_generation",
+      "content": "API Error: Claude Code is unable to respond to this request, which appears to violate our Usage Policy (https://www.anthropic.com/legal/aup). Please double press esc to edit your last message or start"
+    }
+  ],
+  "squiggle_models": [],
+  "selected_model_id": null,
+  "final_forecast": null,
+  "confidence": "unknown",
+  "final_reasoning": "",
+  "full_conversation": "Assistant: API Error: Claude Code is unable to respond to this request, which appears to violate our Usage Policy (https://www.anthropic.com/legal/aup). Please double press esc to edit your last message or start a new session for Claude Code to assist with a different task. If you are seeing this refusal repeatedly, try running /model claude-sonnet-4-20250514 to switch models.",
+  "statistics": {
+    "total_tool_calls": 0,
+    "total_reasoning_steps": 3,
+    "total_models_generated": 0,
+    "duration_seconds": 9.798297
+  }
+}

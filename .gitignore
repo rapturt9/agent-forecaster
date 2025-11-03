@@ -54,3 +54,4 @@ forecasts/
 # Logs
 *.log
 logs/
+/mlruns
