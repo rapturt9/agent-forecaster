@@ -57,6 +57,8 @@ def extract_results_from_output(filepath):
             continue
         try:
             obj = json.loads(line)
+            if not isinstance(obj, dict):
+                continue
             # Look in assistant message content
             if obj.get('type') == 'assistant':
                 msg = obj.get('message', {})
