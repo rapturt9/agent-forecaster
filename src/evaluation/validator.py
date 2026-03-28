@@ -1,13 +1,21 @@
-"""Validator for comparing forecasts against Kalshi market outcomes."""
+"""Validator for comparing forecasts against outcomes.
+
+Supports both Kalshi market validation and direct outcome validation
+for standalone evaluations (e.g., BTC price direction, custom questions).
+"""
+
+from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, TYPE_CHECKING
 from datetime import datetime
 
-from src.agent.forecaster import Forecast
-from src.data.kalshi import KalshiClient, KalshiMarket
 from src.evaluation.scorer import ForecastScorer
+
+if TYPE_CHECKING:
+    from src.agent.forecaster import Forecast
+    from src.data.kalshi import KalshiClient, KalshiMarket
 
 
 class ForecastValidator:
@@ -29,8 +37,72 @@ class ForecastValidator:
             self.kalshi_client = KalshiClient()
         return self.kalshi_client
 
+    def validate_against_outcome(
+        self,
+        forecast_prob: float,
+        outcome: bool,
+        question: str = "",
+        metadata: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Validate a binary forecast directly against a known outcome.
+
+        This is the simplest evaluation path -- no Kalshi needed.
+
+        Args:
+            forecast_prob: Predicted probability of "yes" (0-1)
+            outcome: Actual outcome (True/False)
+            question: Optional question text for logging
+            metadata: Optional extra metadata to include in result
+
+        Returns:
+            Validation result dict with scores
+        """
+        scores = self.scorer.add_forecast(forecast_prob, outcome, question_type="binary")
+        result = {
+            "status": "validated",
+            "question": question,
+            "forecast": forecast_prob,
+            "outcome": outcome,
+            "scores": scores,
+            "validated_at": datetime.now().isoformat(),
+        }
+        if metadata:
+            result["metadata"] = metadata
+        return result
+
+    def validate_numerical_outcome(
+        self,
+        forecast_distribution: dict[str, float],
+        outcome: float,
+        question: str = "",
+        metadata: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Validate a numerical forecast directly against a known outcome.
+
+        Args:
+            forecast_distribution: Dict with 'mean', 'p10', 'p90', etc.
+            outcome: Actual numerical outcome
+            question: Optional question text
+            metadata: Optional extra metadata
+
+        Returns:
+            Validation result dict with scores
+        """
+        scores = self.scorer.add_forecast(forecast_distribution, outcome, question_type="numerical")
+        result = {
+            "status": "validated",
+            "question": question,
+            "forecast": forecast_distribution,
+            "outcome": outcome,
+            "scores": scores,
+            "validated_at": datetime.now().isoformat(),
+        }
+        if metadata:
+            result["metadata"] = metadata
+        return result
+
     async def validate_forecast(self, forecast: Forecast) -> dict[str, Any] | None:
-        """Validate a forecast against actual outcome.
+        """Validate a forecast against actual outcome via Kalshi.
 
         Args:
             forecast: Forecast to validate
@@ -51,10 +123,8 @@ class ForecastValidator:
 
         # Parse outcome based on market type
         if forecast.question_type == "binary":
-            # For binary, outcome is typically "Yes" or "No"
             outcome_bool = outcome_data['resolution'].lower() == 'yes'
 
-            # Calculate scores
             if isinstance(forecast.forecast_value, float):
                 scores = self.scorer.add_forecast(
                     forecast.forecast_value,
@@ -72,7 +142,6 @@ class ForecastValidator:
                 }
 
         elif forecast.question_type == "numerical":
-            # For numerical markets, get the actual value
             outcome_value = outcome_data.get('resolution_value')
 
             if outcome_value is not None and isinstance(forecast.forecast_value, dict):
@@ -147,7 +216,19 @@ class ForecastValidator:
                 with open(filepath) as f:
                     data = json.load(f)
 
-                # Reconstruct Forecast object
+                # Check if this is a direct evaluation result (has outcome already)
+                if 'actual_outcome' in data and 'forecast' in data:
+                    result = self.validate_against_outcome(
+                        forecast_prob=float(data['forecast']),
+                        outcome=bool(data['actual_outcome']),
+                        question=data.get('question', ''),
+                        metadata=data.get('metadata'),
+                    )
+                    result['file'] = str(filepath.name)
+                    results.append(result)
+                    continue
+
+                # Otherwise try Kalshi-based validation
                 forecast = Forecast(
                     question=data['question'],
                     question_type=data['question_type'],
@@ -162,7 +243,6 @@ class ForecastValidator:
                     session_id=data.get('session_id'),
                 )
 
-                # Validate
                 result = await self.validate_forecast(forecast)
                 if result:
                     result['file'] = str(filepath.name)
