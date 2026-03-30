@@ -245,6 +245,18 @@ def list_markets(
 
 
 @app.command()
+def eval_btc(
+    rounds: int = typer.Option(1, "--rounds", "-n", help="Number of evaluation rounds"),
+    wait: int = typer.Option(300, "--wait", help="Wait time in seconds (default: 300 = 5min)"),
+):
+    """Evaluate forecasting on BTC 5-min price direction."""
+    import scripts.eval_btc_5min as btc_eval
+
+    btc_eval.WAIT_SECONDS = wait
+    asyncio.run(btc_eval.run_evaluation(num_rounds=rounds))
+
+
+@app.command()
 def version():
     """Show version information."""
     console.print("\n[bold]Agent Forecaster[/bold]")
